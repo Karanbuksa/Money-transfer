@@ -3,6 +3,7 @@ package com.example.moneytransferproj.dataclasses;
 import java.util.Objects;
 
 public class TransferData {
+
     private String cardFromNumber;
     private String cardFromValidTill;
     private String cardFromCVV;

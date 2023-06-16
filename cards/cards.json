@@ -1,0 +1,62 @@
+[
+  {
+    "cardNumber": "9999000011112222",
+    "cardDate": "11/23",
+    "CVV": "345",
+    "balance": 800.0
+  },
+  {
+    "cardNumber": "5555666677778888",
+    "cardDate": "07/22",
+    "CVV": "012",
+    "balance": 200.0
+  },
+  {
+    "cardNumber": "1234567890123456",
+    "cardDate": "12/25",
+    "CVV": "123",
+    "balance": 900.0
+  },
+  {
+    "cardNumber": "4444555566667777",
+    "cardDate": "06/23",
+    "CVV": "234",
+    "balance": 300.0
+  },
+  {
+    "cardNumber": "3333444455556666",
+    "cardDate": "05/25",
+    "CVV": "678",
+    "balance": 1200.0
+  },
+  {
+    "cardNumber": "7777888899990000",
+    "cardDate": "02/24",
+    "CVV": "901",
+    "balance": 600.0
+  },
+  {
+    "cardNumber": "2222333344445555",
+    "cardDate": "04/22",
+    "CVV": "890",
+    "balance": 400.0
+  },
+  {
+    "cardNumber": "9876543210987654",
+    "cardDate": "09/23",
+    "CVV": "456",
+    "balance": 600.0
+  },
+  {
+    "cardNumber": "1111222233334444",
+    "cardDate": "03/24",
+    "CVV": "789",
+    "balance": 1500.0
+  },
+  {
+    "cardNumber": "8888999900001111",
+    "cardDate": "01/25",
+    "CVV": "567",
+    "balance": 100.0
+  }
+]
