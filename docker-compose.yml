@@ -1,0 +1,13 @@
+services:
+  web:
+    build: .
+    image: money-transfer-app
+    container_name: money-transfer-app
+#    Чтобы получить возможность смотреть на логи и состояния карт, создайте папки cards и log и вместо "Disk:\path\to\your\directory" укажите путь к ним
+#    volumes:
+#      - Disk:\path\to\your\directory\cards:/cards
+#      - Disk:\path\to\your\directory\log:/log
+    ports:
+      - "5500:8080"
+    expose:
+      - "8080"

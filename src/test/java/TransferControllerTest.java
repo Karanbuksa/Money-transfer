@@ -38,7 +38,7 @@ public class TransferControllerTest {
         transferData.setCardFromNumber("1234123412341234");
         transferData.setCardFromCVV("333");
         transferData.setCardToNumber("4567456745674567");
-        transferData.setCardFromValidTill("12/33 ");
+        transferData.setCardFromValidTill("12/33");
 
         mockMvc.perform(post("/transfer")
                         .contentType(MediaType.APPLICATION_JSON)

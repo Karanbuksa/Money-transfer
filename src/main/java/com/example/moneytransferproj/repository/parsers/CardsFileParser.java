@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class CardsFileParser {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         List<Account> employeeList = new ArrayList<>();
-        try {
-            Object object = jsonParser.parse(new FileReader("cards/cards.json"));
+        try(Reader fileReader = new FileReader("cards/cards.json")) {
+            Object object = jsonParser.parse(fileReader);
             jsonArray = (JSONArray) object;
         } catch (ParseException | IOException ignored) {
 

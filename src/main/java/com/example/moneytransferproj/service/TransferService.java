@@ -33,21 +33,22 @@ public class TransferService {
         if (fromAccount == null || toAccount == null) {
             transaction.setOperationResult("Не проведена: Карты не существует");
             log(transaction);
-            throw new InputDataException("Карты не существует");
-        }
-
-        if (fromAccount.getBalance() < transaction.getAmount()) {
-            transaction.setOperationResult("Не проведена: Недостаточно средств");
-            log(transaction);
-            throw new InputDataException("Недостаточно средств");
+            throw new InputDataException("Карты не существует",transaction);
         }
 
         if (!fromAccount.getCVV().equals(transferData.getCardFromCVV()) ||
                 !fromAccount.getCardDate().equals(transferData.getCardFromValidTill())) {
             transaction.setOperationResult("Не проведена: Неверные данные карты");
             log(transaction);
-            throw new InputDataException("Неверные данные карты");
+            throw new InputDataException("Неверные данные карты",transaction);
         }
+
+        if (fromAccount.getBalance() < transaction.getAmount()) {
+            transaction.setOperationResult("Не проведена: Недостаточно средств");
+            log(transaction);
+            throw new InputDataException("Недостаточно средств",transaction);
+        }
+
         transactionBuffer = transaction;
 
         return transaction.getOperationID();
@@ -59,7 +60,7 @@ public class TransferService {
             Account fromAccount = cardsRepository.getAccountByCardNumber(transactionBuffer.getCardFromNumber());
             Account toAccount = cardsRepository.getAccountByCardNumber(transactionBuffer.getCardToNumber());
 
-            fromAccount.withdraw(transactionBuffer.getAmount());
+            fromAccount.withdraw(transactionBuffer.getAmount() + transactionBuffer.getServiceFee());
             toAccount.deposit(transactionBuffer.getAmount());
             cardsRepository.updateCards();
             transactionBuffer.setOperationResult("Проведена");
@@ -68,7 +69,7 @@ public class TransferService {
 
             return transactionBuffer.getOperationID();
         } else {
-            throw new ConfirmationException("Неверный код");
+            throw new ConfirmationException("Неверный код", transactionBuffer);
         }
     }
 

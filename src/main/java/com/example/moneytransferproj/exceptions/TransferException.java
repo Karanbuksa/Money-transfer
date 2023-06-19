@@ -1,8 +1,10 @@
 package com.example.moneytransferproj.exceptions;
 
-public class TransferException extends RuntimeException {
+import com.example.moneytransferproj.dataclasses.Transaction;
 
-    public TransferException(String message) {
-        super(message);
+public class TransferException extends MyExceptionAncestor {
+
+    public TransferException(String message, Transaction transaction) {
+        super(message, transaction);
     }
 }

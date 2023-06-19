@@ -1,9 +1,11 @@
 package com.example.moneytransferproj.exceptions;
 
-public class ConfirmationException extends RuntimeException {
+import com.example.moneytransferproj.dataclasses.Transaction;
 
-    public ConfirmationException(String message) {
-        super(message);
+public class ConfirmationException extends MyExceptionAncestor {
+
+    public ConfirmationException(String message, Transaction transaction) {
+        super(message, transaction);
+
     }
-
 }

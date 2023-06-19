@@ -15,7 +15,7 @@
     "cardNumber": "1234567890123456",
     "cardDate": "12/25",
     "CVV": "123",
-    "balance": 900.0
+    "balance": 905.0
   },
   {
     "cardNumber": "4444555566667777",
@@ -45,7 +45,7 @@
     "cardNumber": "9876543210987654",
     "cardDate": "09/23",
     "CVV": "456",
-    "balance": 600.0
+    "balance": 594.95
   },
   {
     "cardNumber": "1111222233334444",
