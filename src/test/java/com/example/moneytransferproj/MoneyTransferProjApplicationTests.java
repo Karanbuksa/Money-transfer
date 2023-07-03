@@ -1,8 +1,8 @@
 package com.example.moneytransferproj;
 
-import com.example.moneytransferproj.dataclasses.Amount;
-import com.example.moneytransferproj.dataclasses.ConfirmOperation;
-import com.example.moneytransferproj.dataclasses.TransferData;
+import com.example.moneytransferproj.data_transfer_objects.Amount;
+import com.example.moneytransferproj.data_transfer_objects.ConfirmOperation;
+import com.example.moneytransferproj.data_transfer_objects.TransferData;
 import com.example.moneytransferproj.exceptions.ExceptionResponse;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,12 +37,9 @@ class MoneyTransferProjApplicationTests {
     @Test
     void test_validTransferData_validConfirmData() {
         //Arrange
-        TransferData transferData = new TransferData();
-        transferData.setAmount(new Amount(4000, "RUR"));
-        transferData.setCardFromNumber("1111222233334444");
-        transferData.setCardFromCVV("789");
-        transferData.setCardToNumber("8888999900001111");
-        transferData.setCardFromValidTill("03/24");
+        TransferData transferData = new TransferData("1111222233334444", "03/24",
+                "789", "8888999900001111", new Amount(4000, "RUR"));
+
         ConfirmOperation confirmOperation = new ConfirmOperation("0000");
         //Act
         ResponseEntity<String> entityFromApp1 = restTemplate.postForEntity("http://localhost:" + appPort + "/transfer", transferData, String.class);
@@ -60,12 +57,9 @@ class MoneyTransferProjApplicationTests {
     @Test
     void test_validTransferData_invalidConfirmData() {
         //Arrange
-        TransferData transferData = new TransferData();
-        transferData.setAmount(new Amount(4000, "RUR"));
-        transferData.setCardFromNumber("1111222233334444");
-        transferData.setCardFromCVV("789");
-        transferData.setCardToNumber("8888999900001111");
-        transferData.setCardFromValidTill("03/24");
+        TransferData transferData = new TransferData("1111222233334444", "03/24",
+                "789", "8888999900001111", new Amount(4000, "RUR"));
+
         ConfirmOperation confirmOperation = new ConfirmOperation(null);
         ObjectMapper objectMapper = new ObjectMapper();
         JavaType javaType = objectMapper.constructType(ExceptionResponse.class);
@@ -85,12 +79,9 @@ class MoneyTransferProjApplicationTests {
     @Test
     void transferEndpointTest_invalidTransferData_unavailableCard() {
         //Arrange
-        TransferData transferData = new TransferData();
-        transferData.setAmount(new Amount(4000, "RUR"));
-        transferData.setCardFromNumber("1111222233334443");
-        transferData.setCardFromCVV("789");
-        transferData.setCardToNumber("8888999900001111");
-        transferData.setCardFromValidTill("03/24");
+        TransferData transferData = new TransferData("1111222233334443", "03/24",
+                "789", "8888999900001111", new Amount(4000, "RUR"));
+
         ObjectMapper objectMapper = new ObjectMapper();
         JavaType javaType = objectMapper.constructType(ExceptionResponse.class);
         //Act
@@ -105,12 +96,9 @@ class MoneyTransferProjApplicationTests {
     @Test
     void transferEndpointTest_invalidTransferData_invalidCardCredentials() {
         //Arrange
-        TransferData transferData = new TransferData();
-        transferData.setAmount(new Amount(4000, "RUR"));
-        transferData.setCardFromNumber("1111222233334444");
-        transferData.setCardFromCVV("788");
-        transferData.setCardToNumber("8888999900001111");
-        transferData.setCardFromValidTill("03/24");
+        TransferData transferData = new TransferData("1111222233334444", "03/24",
+                "788", "8888999900001111", new Amount(4000, "RUR"));
+
         ObjectMapper objectMapper = new ObjectMapper();
         //Act
         ResponseEntity<String> entityFromApp = restTemplate.postForEntity("http://localhost:" + appPort + "/transfer", transferData, String.class);

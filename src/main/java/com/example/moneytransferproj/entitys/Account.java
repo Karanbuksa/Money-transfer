@@ -1,20 +1,20 @@
-package com.example.moneytransferproj.dataclasses;
+package com.example.moneytransferproj.entitys;
 
 import java.util.Objects;
 
 public class Account {
     private String cardNumber;
     private String cardDate;
-    private String CVV;
+    private String cvv;
     private Double balance;
 
     public Account() {
     }
 
-    public Account(String cardNumber, String cardDate, String CVV, Double balance) {
+    public Account(String cardNumber, String cardDate, String cvv, Double balance) {
         this.cardNumber = cardNumber;
         this.cardDate = cardDate;
-        this.CVV = CVV;
+        this.cvv = cvv;
         this.balance = balance;
     }
 
@@ -34,12 +34,12 @@ public class Account {
         this.cardDate = cardDate;
     }
 
-    public String getCVV() {
-        return CVV;
+    public String getCvv() {
+        return cvv;
     }
 
-    public void setCVV(String CVV) {
-        this.CVV = CVV;
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
     }
 
     public void withdraw(Double sum) {
@@ -62,12 +62,12 @@ public class Account {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Account account)) return false;
-        return Objects.equals(cardNumber, account.cardNumber) && Objects.equals(cardDate, account.cardDate) && Objects.equals(CVV, account.CVV) && Objects.equals(balance, account.balance);
+        return Objects.equals(cardNumber, account.cardNumber) && Objects.equals(cardDate, account.cardDate) && Objects.equals(cvv, account.cvv) && Objects.equals(balance, account.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cardNumber, cardDate, CVV, balance);
+        return Objects.hash(cardNumber, cardDate, cvv, balance);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Account {
         return "Card{" +
                 "cardNumber='" + cardNumber + '\'' +
                 ", cardDate='" + cardDate + '\'' +
-                ", CVV='" + CVV + '\'' +
+                ", CVV='" + cvv + '\'' +
                 ", balance='" + balance + '\'' +
                 '}';
     }

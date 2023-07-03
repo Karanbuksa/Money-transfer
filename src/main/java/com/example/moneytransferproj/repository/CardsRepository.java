@@ -1,6 +1,6 @@
 package com.example.moneytransferproj.repository;
 
-import com.example.moneytransferproj.dataclasses.Account;
+import com.example.moneytransferproj.entitys.Account;
 import com.example.moneytransferproj.repository.parsers.CardsFileParser;
 import org.springframework.stereotype.Repository;
 
@@ -9,18 +9,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class CardsRepository {
-    private static ConcurrentHashMap<String, Account> cardsConcurrentHashMap;
 
-    static {
-        try {
-            cardsConcurrentHashMap = CardsFileParser.readCardFromFile();
-        } catch (IOException ignored) {
 
-        }
+    private final CardsFileParser parser = new CardsFileParser();
+    private final ConcurrentHashMap<String, Account> cardsConcurrentHashMap = parser.readCardFromFile();
+
+
+    public CardsRepository() throws IOException {
+
     }
 
-    public CardsRepository() {
-    }
 
     public Account getAccountByCardNumber(String cardNumber) {
         return cardsConcurrentHashMap.get(cardNumber);
@@ -31,6 +29,6 @@ public class CardsRepository {
     }
 
     public void updateCards() {
-        CardsFileParser.writeString(CardsFileParser.listToJson(cardsConcurrentHashMap.values().stream().toList()));
+        parser.writeString(parser.listToJson(cardsConcurrentHashMap.values().stream().toList()));
     }
 }

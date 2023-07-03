@@ -1,6 +1,6 @@
 package com.example.moneytransferproj.repository;
 
-import com.example.moneytransferproj.dataclasses.Transaction;
+import com.example.moneytransferproj.entitys.Transaction;
 import com.example.moneytransferproj.repository.parsers.TransactionParser;
 import org.springframework.stereotype.Repository;
 
@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class TransactionRepository {
 
-
-    private static final ConcurrentHashMap<Integer, Transaction> transactionConcurrentHashMap = TransactionParser.readTransactionsFromFile();
+    private final TransactionParser parser = new TransactionParser();
+    private final ConcurrentHashMap<Integer, Transaction> transactionConcurrentHashMap = parser.readTransactionsFromFile();
 
 
     public TransactionRepository() {

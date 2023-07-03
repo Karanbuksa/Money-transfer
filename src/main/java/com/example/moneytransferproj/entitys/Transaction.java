@@ -1,4 +1,4 @@
-package com.example.moneytransferproj.dataclasses;
+package com.example.moneytransferproj.entitys;
 
 import java.util.Objects;
 
@@ -58,9 +58,6 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
 
     public void setCurrency(String currency) {
         this.currency = currency;
