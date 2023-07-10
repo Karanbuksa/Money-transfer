@@ -62,20 +62,21 @@ public class CardsFileParserTest {
         //Act
         String json = parser.listToJson(accounts);
         //
-        assertThat(json, is("[\n" +
-                "  {\n" +
-                "    \"cardNumber\": \"9999000011112222\",\n" +
-                "    \"cardDate\": \"11/23\",\n" +
-                "    \"cvv\": \"345\",\n" +
-                "    \"balance\": 759.6\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"cardNumber\": \"5555666677778888\",\n" +
-                "    \"cardDate\": \"07/22\",\n" +
-                "    \"cvv\": \"012\",\n" +
-                "    \"balance\": 240.0\n" +
-                "  }\n" +
-                "]"));
+        assertThat(json, is("""
+                [
+                  {
+                    "cardNumber": "9999000011112222",
+                    "cardDate": "11/23",
+                    "cvv": "345",
+                    "balance": 759.6
+                  },
+                  {
+                    "cardNumber": "5555666677778888",
+                    "cardDate": "07/22",
+                    "cvv": "012",
+                    "balance": 240.0
+                  }
+                ]"""));
     }
 
     @Test
