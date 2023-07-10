@@ -4,19 +4,19 @@ import com.example.moneytransferproj.entitys.Account;
 import com.example.moneytransferproj.repository.parsers.CardsFileParser;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
-public class CardsRepository {
+public class AccountsRepository {
 
 
-    private final CardsFileParser parser = new CardsFileParser();
-    private final ConcurrentHashMap<String, Account> cardsConcurrentHashMap = parser.readCardFromFile();
+    private final CardsFileParser parser;
+    private final ConcurrentHashMap<String, Account> cardsConcurrentHashMap;
 
 
-    public CardsRepository() throws IOException {
-
+    public AccountsRepository(CardsFileParser parser) {
+        this.parser = parser;
+        this.cardsConcurrentHashMap = parser.readCardsFromFile();
     }
 
 
@@ -26,9 +26,15 @@ public class CardsRepository {
 
     public void addAccount(Account account) {
         cardsConcurrentHashMap.put(account.getCardNumber(), account);
+        updateAccounts();
     }
 
-    public void updateCards() {
+    public void removeAccountByCardNumber(String accountNumber) {
+        cardsConcurrentHashMap.remove(accountNumber);
+        updateAccounts();
+    }
+
+    public void updateAccounts() {
         parser.writeString(parser.listToJson(cardsConcurrentHashMap.values().stream().toList()));
     }
 }

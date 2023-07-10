@@ -5,28 +5,27 @@ import com.example.moneytransferproj.entitys.Account;
 import com.example.moneytransferproj.entitys.Transaction;
 import com.example.moneytransferproj.exceptions.ConfirmationException;
 import com.example.moneytransferproj.logger.TransactionLogger;
-import com.example.moneytransferproj.repository.CardsRepository;
-import lombok.extern.slf4j.Slf4j;
+import com.example.moneytransferproj.repository.AccountsRepository;
 import org.springframework.stereotype.Service;
 
-@Slf4j
+
 @Service
 public class ValidationService {
-    private final CardsRepository cardsRepository;
+    private final AccountsRepository accountsRepository;
 
-    public ValidationService(CardsRepository cardsRepository){
-        this.cardsRepository = cardsRepository;
+    public ValidationService(AccountsRepository accountsRepository) {
+        this.accountsRepository = accountsRepository;
     }
 
     public String confirm(ConfirmOperation confirmOperation, Transaction transactionBuffer) {
         if (confirmOperation.code() != null) {
-            Account fromAccount = cardsRepository.getAccountByCardNumber(transactionBuffer.getCardFromNumber());
-            Account toAccount = cardsRepository.getAccountByCardNumber(transactionBuffer.getCardToNumber());
+            Account fromAccount = accountsRepository.getAccountByCardNumber(transactionBuffer.getCardFromNumber());
+            Account toAccount = accountsRepository.getAccountByCardNumber(transactionBuffer.getCardToNumber());
 
             fromAccount.withdraw(transactionBuffer.getAmount() + transactionBuffer.getServiceFee());
             toAccount.deposit(transactionBuffer.getAmount());
 
-            cardsRepository.updateCards();
+            accountsRepository.updateAccounts();
 
             transactionBuffer.setOperationResult("Проведена");
             TransactionLogger.log(transactionBuffer);

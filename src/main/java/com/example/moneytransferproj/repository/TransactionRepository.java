@@ -10,11 +10,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class TransactionRepository {
 
-    private final TransactionParser parser = new TransactionParser();
-    private final ConcurrentHashMap<Integer, Transaction> transactionConcurrentHashMap = parser.readTransactionsFromFile();
+    private final ConcurrentHashMap<Integer, Transaction> transactionConcurrentHashMap;
 
 
-    public TransactionRepository() {
+    public TransactionRepository(TransactionParser parser) {
+        transactionConcurrentHashMap = parser.readTransactionsFromFile();
     }
 
     public Transaction getTransaction(Integer id) {

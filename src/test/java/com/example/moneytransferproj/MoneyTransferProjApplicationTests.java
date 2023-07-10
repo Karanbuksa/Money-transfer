@@ -98,13 +98,13 @@ class MoneyTransferProjApplicationTests {
         //Arrange
         TransferData transferData = new TransferData("1111222233334444", "03/24",
                 "788", "8888999900001111", new Amount(4000, "RUR"));
-
         ObjectMapper objectMapper = new ObjectMapper();
+        JavaType javaType = objectMapper.constructType(ExceptionResponse.class);
+
         //Act
         ResponseEntity<String> entityFromApp = restTemplate.postForEntity("http://localhost:" + appPort + "/transfer", transferData, String.class);
         //Assert
-        Assertions.assertEquals(entityFromApp.getStatusCode(), HttpStatusCode.valueOf(400));
-        JavaType javaType = objectMapper.constructType(ExceptionResponse.class);
+        Assertions.assertEquals(HttpStatusCode.valueOf(400), entityFromApp.getStatusCode());
         ExceptionResponse exceptionResponse = objectMapper.readValue(entityFromApp.getBody(), javaType);
         Assertions.assertEquals("Неверные данные карты", exceptionResponse.getMessage());
     }

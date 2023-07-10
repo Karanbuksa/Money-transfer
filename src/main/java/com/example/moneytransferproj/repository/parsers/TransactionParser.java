@@ -1,6 +1,7 @@
 package com.example.moneytransferproj.repository.parsers;
 
 import com.example.moneytransferproj.entitys.Transaction;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,11 +10,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class TransactionParser {
+    private String path = "log/transfer.log";
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public Transaction parseTransaction(String input) {
-        String PATTERN_REGEX = "(\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}) - ID операции: (.*?), Номер карты списания: (.*?), Номер карты зачисления:(.*?), Результат операции: (.*?)$";
-        Pattern pattern = Pattern.compile(PATTERN_REGEX);
+        String patternRegex = "(\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}) - ID операции: (.*?), Номер карты списания: (.*?), Номер карты зачисления: (.*?), Результат операции: (.*?)$";
+        Pattern pattern = Pattern.compile(patternRegex);
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
@@ -31,7 +38,7 @@ public class TransactionParser {
     public ConcurrentHashMap<Integer, Transaction> readTransactionsFromFile() {
         ConcurrentHashMap<Integer, Transaction> transactionMap = new ConcurrentHashMap<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("log/transfer.log"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Transaction transaction = parseTransaction(line);

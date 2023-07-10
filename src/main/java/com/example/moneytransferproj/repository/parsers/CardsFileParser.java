@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,10 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class CardsFileParser {
+    private final JSONParser jsonParser;
+    private JSONArray jsonArray;
+    private final Gson gson;
 
+    private String path = "cards/cards.json";
 
-    public ConcurrentHashMap<String, Account> readCardFromFile() throws IOException {
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public CardsFileParser() {
+        jsonParser = new JSONParser();
+        jsonArray = new JSONArray();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gson = gsonBuilder.create();
+    }
+
+    public ConcurrentHashMap<String, Account> readCardsFromFile() {
 
         List<Account> cardsList = jsonToList();
         ConcurrentHashMap<String, Account> cardMap = new ConcurrentHashMap<>();
@@ -30,12 +47,8 @@ public class CardsFileParser {
     }
 
     public List<Account> jsonToList() {
-        JSONParser jsonParser = new JSONParser();
-        JSONArray jsonArray = new JSONArray();
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
         List<Account> employeeList = new ArrayList<>();
-        try (Reader fileReader = new FileReader("cards/cards.json")) {
+        try (Reader fileReader = new FileReader(path)) {
             Object object = jsonParser.parse(fileReader);
             jsonArray = (JSONArray) object;
         } catch (ParseException | IOException ignored) {
@@ -59,7 +72,7 @@ public class CardsFileParser {
     }
 
     public void writeString(String string) {
-        try (FileWriter fileWriter = new FileWriter("cards/cards.json")) {
+        try (FileWriter fileWriter = new FileWriter(path)) {
             fileWriter.write(string);
             fileWriter.flush();
         } catch (IOException e) {

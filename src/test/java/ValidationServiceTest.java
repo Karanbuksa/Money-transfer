@@ -2,7 +2,7 @@ import com.example.moneytransferproj.data_transfer_objects.ConfirmOperation;
 import com.example.moneytransferproj.entitys.Account;
 import com.example.moneytransferproj.entitys.Transaction;
 import com.example.moneytransferproj.exceptions.ConfirmationException;
-import com.example.moneytransferproj.repository.CardsRepository;
+import com.example.moneytransferproj.repository.AccountsRepository;
 import com.example.moneytransferproj.service.ValidationService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 public class ValidationServiceTest {
 
     @Mock
-    private CardsRepository cardsRepository;
+    private AccountsRepository accountsRepository;
     @InjectMocks
     private ValidationService validationService;
 
@@ -44,8 +44,8 @@ public class ValidationServiceTest {
         Transaction transaction = new Transaction("5", "1234567890123456",
                 "9876543210987654", 300.0, "RUR", 3.0, "");
 
-        when(cardsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
-        when(cardsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
+        when(accountsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
+        when(accountsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
 
         // Act
         String operationId = validationService.confirm(confirmOperation, transaction);
@@ -53,7 +53,7 @@ public class ValidationServiceTest {
         // Assert
         assertNotNull(operationId);
 
-        verify(cardsRepository, times(1)).updateCards();
+        verify(accountsRepository, times(1)).updateAccounts();
 
         assertEquals("Проведена", transaction.getOperationResult());
     }
@@ -65,8 +65,8 @@ public class ValidationServiceTest {
         ConfirmOperation confirmOperation = new ConfirmOperation(null);
         Transaction transaction = new Transaction("5", "1234567890123456",
                 "9876543210987654", 300.0, "RUR", 3.0, "");
-        // Act & Assert
+        // Assert
         assertThrows(ConfirmationException.class, () -> validationService.confirm(confirmOperation, transaction));
-        verify(cardsRepository, never()).updateCards();
+        verify(accountsRepository, never()).updateAccounts();
     }
 }

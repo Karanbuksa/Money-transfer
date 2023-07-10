@@ -3,7 +3,7 @@ import com.example.moneytransferproj.data_transfer_objects.TransferData;
 import com.example.moneytransferproj.entitys.Account;
 import com.example.moneytransferproj.entitys.Transaction;
 import com.example.moneytransferproj.exceptions.InputDataException;
-import com.example.moneytransferproj.repository.CardsRepository;
+import com.example.moneytransferproj.repository.AccountsRepository;
 import com.example.moneytransferproj.repository.TransactionRepository;
 import com.example.moneytransferproj.service.TransferService;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ class TransferServiceTest {
     private TransactionRepository transactionRepository;
 
     @Mock
-    private CardsRepository cardsRepository;
+    private AccountsRepository accountsRepository;
 
     @InjectMocks
     private TransferService transferService;
@@ -47,8 +47,8 @@ class TransferServiceTest {
         Account toAccount = new Account();
         toAccount.setBalance(1000.0);
 
-        when(cardsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
-        when(cardsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
+        when(accountsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
+        when(accountsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
 
         // Act
         String operationId = transferService.transfer(transferData).getOperationID();
@@ -64,10 +64,10 @@ class TransferServiceTest {
         TransferData transferData = new TransferData("1234567890123456", "12/25",
                 "123", "9876543210987654", new Amount(1000, "USD"));
 
-        when(cardsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(null);
-        when(cardsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(null);
+        when(accountsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(null);
+        when(accountsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(null);
 
-        // Act & Assert
+        //Assert
         assertThrows(InputDataException.class, () -> transferService.transfer(transferData));
         verify(transactionRepository, times(1)).putTransaction(anyInt(), any(Transaction.class));
     }
@@ -86,10 +86,10 @@ class TransferServiceTest {
         Account toAccount = new Account();
         toAccount.setBalance(1000.0);
 
-        when(cardsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
-        when(cardsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
+        when(accountsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
+        when(accountsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
 
-        // Act & Assert
+        // Assert
         assertThrows(InputDataException.class, () -> transferService.transfer(transferData));
         verify(transactionRepository, times(1)).putTransaction(anyInt(), any(Transaction.class));
     }
@@ -108,10 +108,10 @@ class TransferServiceTest {
         Account toAccount = new Account();
         toAccount.setBalance(1000.0);
 
-        when(cardsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
-        when(cardsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
+        when(accountsRepository.getAccountByCardNumber("1234567890123456")).thenReturn(fromAccount);
+        when(accountsRepository.getAccountByCardNumber("9876543210987654")).thenReturn(toAccount);
 
-        // Act & Assert
+        //Assert
         assertThrows(InputDataException.class, () -> transferService.transfer(transferData));
         verify(transactionRepository, times(1)).putTransaction(anyInt(), any(Transaction.class));
     }

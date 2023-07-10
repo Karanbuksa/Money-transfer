@@ -5,7 +5,7 @@ import com.example.moneytransferproj.entitys.Account;
 import com.example.moneytransferproj.entitys.Transaction;
 import com.example.moneytransferproj.exceptions.InputDataException;
 import com.example.moneytransferproj.logger.TransactionLogger;
-import com.example.moneytransferproj.repository.CardsRepository;
+import com.example.moneytransferproj.repository.AccountsRepository;
 import com.example.moneytransferproj.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,17 @@ import org.springframework.stereotype.Service;
 public class TransferService {
 
     private final TransactionRepository transactionRepository;
-    private final CardsRepository cardsRepository;
+    private final AccountsRepository accountsRepository;
 
-    public TransferService(TransactionRepository transactionRepository, CardsRepository cardsRepository) {
+    public TransferService(TransactionRepository transactionRepository, AccountsRepository accountsRepository) {
         this.transactionRepository = transactionRepository;
-        this.cardsRepository = cardsRepository;
+        this.accountsRepository = accountsRepository;
     }
 
     public Transaction transfer(TransferData transferData) {
         Transaction transaction = createTransaction(transferData);
-        Account fromAccount = cardsRepository.getAccountByCardNumber(transaction.getCardFromNumber());
-        Account toAccount = cardsRepository.getAccountByCardNumber(transaction.getCardToNumber());
+        Account fromAccount = accountsRepository.getAccountByCardNumber(transaction.getCardFromNumber());
+        Account toAccount = accountsRepository.getAccountByCardNumber(transaction.getCardToNumber());
 
         if (fromAccount == null || toAccount == null) {
             transaction.setOperationResult("Не проведена: Карты не существует");
