@@ -1,6 +1,6 @@
 package com.example.moneytransferproj.repository.parsers;
 
-import com.example.moneytransferproj.entitys.Account;
+import com.example.moneytransferproj.domain.Account;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

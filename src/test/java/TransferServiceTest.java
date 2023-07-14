@@ -1,7 +1,7 @@
-import com.example.moneytransferproj.data_transfer_objects.Amount;
-import com.example.moneytransferproj.data_transfer_objects.TransferData;
-import com.example.moneytransferproj.entitys.Account;
-import com.example.moneytransferproj.entitys.Transaction;
+import com.example.moneytransferproj.dto.Amount;
+import com.example.moneytransferproj.dto.TransferData;
+import com.example.moneytransferproj.domain.Account;
+import com.example.moneytransferproj.domain.Transaction;
 import com.example.moneytransferproj.exceptions.InputDataException;
 import com.example.moneytransferproj.repository.AccountsRepository;
 import com.example.moneytransferproj.repository.TransactionRepository;

@@ -1,4 +1,4 @@
-import com.example.moneytransferproj.entitys.Account;
+import com.example.moneytransferproj.domain.Account;
 import com.example.moneytransferproj.repository.AccountsRepository;
 import com.example.moneytransferproj.repository.parsers.CardsFileParser;
 import org.junit.jupiter.api.Test;

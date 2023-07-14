@@ -1,8 +1,8 @@
 package com.example.moneytransferproj.controller;
 
-import com.example.moneytransferproj.data_transfer_objects.ConfirmOperation;
-import com.example.moneytransferproj.data_transfer_objects.TransferData;
-import com.example.moneytransferproj.entitys.Transaction;
+import com.example.moneytransferproj.dto.ConfirmOperation;
+import com.example.moneytransferproj.dto.TransferData;
+import com.example.moneytransferproj.domain.Transaction;
 import com.example.moneytransferproj.service.TransferService;
 import com.example.moneytransferproj.service.ValidationService;
 import org.springframework.web.bind.annotation.PostMapping;

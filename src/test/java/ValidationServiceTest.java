@@ -1,6 +1,6 @@
-import com.example.moneytransferproj.data_transfer_objects.ConfirmOperation;
-import com.example.moneytransferproj.entitys.Account;
-import com.example.moneytransferproj.entitys.Transaction;
+import com.example.moneytransferproj.dto.ConfirmOperation;
+import com.example.moneytransferproj.domain.Account;
+import com.example.moneytransferproj.domain.Transaction;
 import com.example.moneytransferproj.exceptions.ConfirmationException;
 import com.example.moneytransferproj.repository.AccountsRepository;
 import com.example.moneytransferproj.service.ValidationService;

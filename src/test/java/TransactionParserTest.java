@@ -1,4 +1,4 @@
-import com.example.moneytransferproj.entitys.Transaction;
+import com.example.moneytransferproj.domain.Transaction;
 import com.example.moneytransferproj.repository.parsers.TransactionParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

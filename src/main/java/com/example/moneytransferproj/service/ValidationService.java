@@ -1,14 +1,14 @@
 package com.example.moneytransferproj.service;
 
-import com.example.moneytransferproj.data_transfer_objects.ConfirmOperation;
-import com.example.moneytransferproj.entitys.Account;
-import com.example.moneytransferproj.entitys.Transaction;
+import com.example.moneytransferproj.dto.ConfirmOperation;
+import com.example.moneytransferproj.domain.Account;
+import com.example.moneytransferproj.domain.Transaction;
 import com.example.moneytransferproj.exceptions.ConfirmationException;
-import com.example.moneytransferproj.logger.TransactionLogger;
 import com.example.moneytransferproj.repository.AccountsRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-
+@Slf4j
 @Service
 public class ValidationService {
     private final AccountsRepository accountsRepository;
@@ -28,7 +28,11 @@ public class ValidationService {
             accountsRepository.updateAccounts();
 
             transactionBuffer.setOperationResult("Проведена");
-            TransactionLogger.log(transactionBuffer);
+            log.info("ID операции: %s, Номер карты списания: %s, Номер карты зачисления: %s, Результат операции: %s"
+                    .formatted(transactionBuffer.getOperationID(),
+                            transactionBuffer.getCardFromNumber(),
+                            transactionBuffer.getCardToNumber(),
+                            transactionBuffer.getOperationResult()));
             System.out.println("Осуществлён перевод");
 
             return transactionBuffer.getOperationID();

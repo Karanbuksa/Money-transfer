@@ -1,4 +1,4 @@
-package com.example.moneytransferproj.entitys;
+package com.example.moneytransferproj.domain;
 
 import java.util.Objects;
 

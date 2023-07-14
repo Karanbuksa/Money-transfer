@@ -1,27 +1,31 @@
 package com.example.moneytransferproj.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
-    private static String[] allowedOrigins;
-    private static String[] allowedMethods;
-    private static Long maxAge;
+    @Value("#{'${allowedOrigins}'.split(', ')}")
+    private List<String> allowedOrigins;
 
-    public CorsConfig(Environment env) {
-        allowedOrigins = env.getProperty("allowedOrigins", String[].class);
-        allowedMethods = env.getProperty("allowedMethods", String[].class);
-        maxAge = env.getProperty("maxAge", Long.class);
+    @Value("#{'${allowedMethods}'.split(', ')}")
+    private List<String> allowedMethods;
+
+    @Value("${maxAge}")
+    private Long maxAge;
+
+    public CorsConfig() {
+
     }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(allowedOrigins)
-                .allowedMethods(allowedMethods)
+                .allowedOrigins(allowedOrigins.toArray(new String[0]))
+                .allowedMethods(allowedMethods.toArray(new String[0]))
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(maxAge);

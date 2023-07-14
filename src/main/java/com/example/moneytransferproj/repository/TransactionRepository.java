@@ -1,6 +1,6 @@
 package com.example.moneytransferproj.repository;
 
-import com.example.moneytransferproj.entitys.Transaction;
+import com.example.moneytransferproj.domain.Transaction;
 import com.example.moneytransferproj.repository.parsers.TransactionParser;
 import org.springframework.stereotype.Repository;
 

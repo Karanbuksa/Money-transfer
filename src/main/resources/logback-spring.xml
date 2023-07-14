@@ -16,10 +16,13 @@
         </encoder>
     </appender>
 
-    <logger name="com.example.moneytransferproj.logger.TransactionLogger" level="info" additivity="false">
+    <logger name="com.example.moneytransferproj.service.TransferService" level="info" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
 
+    <logger name="com.example.moneytransferproj.service.ValidationService" level="info" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
 
     <logger name="com.example.moneytransferproj.handler.ExceptionHandlerAdvice" level="error" additivity="false">
         <appender-ref ref="ERROR"/>

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.MessageFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -27,7 +28,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(InputDataException.class)
     public ResponseEntity<ExceptionResponse> invalidInputDataExceptionHandler(InputDataException e) {
-        log.error(e.getMessage() + " (" + HttpStatus.BAD_REQUEST + ")." + " Транзакция: " + e.getTransaction().getOperationID());
+        log.error(MessageFormat.format("{0} ({1}). Транзакция: {2}", e.getMessage(), HttpStatus.BAD_REQUEST, e.getTransaction().getOperationID()));
         errorCount.incrementAndGet();
         return new ResponseEntity<>(new ExceptionResponse(e.getMessage(), errorCount.get()),
                 HttpStatus.BAD_REQUEST);
@@ -35,7 +36,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(TransferException.class)
     public ResponseEntity<ExceptionResponse> transferExceptionHandler(TransferException e) {
-        log.error(e.getMessage() + " (" + HttpStatus.INTERNAL_SERVER_ERROR + ")." + " Транзакция: " + e.getTransaction().getOperationID());
+        log.error(MessageFormat.format("{0} ({1}). Транзакция: {2}", e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, e.getTransaction().getOperationID()));
         errorCount.incrementAndGet();
         return new ResponseEntity<>(new ExceptionResponse(e.getMessage(), errorCount.get()),
                 HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,7 +44,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(ConfirmationException.class)
     public ResponseEntity<ExceptionResponse> confirmationExceptionHandler(ConfirmationException e) {
-        log.error(e.getMessage() + " (" + HttpStatus.INTERNAL_SERVER_ERROR + ")." + " Транзакция: " + e.getTransaction().getOperationID());
+        log.error(MessageFormat.format("{0} ({1}). Транзакция: {2}", e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, e.getTransaction().getOperationID()));
         errorCount.incrementAndGet();
         return new ResponseEntity<>(new ExceptionResponse(e.getMessage(), errorCount.get()),
                 HttpStatus.INTERNAL_SERVER_ERROR);

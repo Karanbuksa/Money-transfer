@@ -1,5 +1,5 @@
 import com.example.moneytransferproj.controller.TransferController;
-import com.example.moneytransferproj.entitys.Transaction;
+import com.example.moneytransferproj.domain.Transaction;
 import com.example.moneytransferproj.exceptions.ConfirmationException;
 import com.example.moneytransferproj.exceptions.InputDataException;
 import com.example.moneytransferproj.exceptions.TransferException;

@@ -1,8 +1,8 @@
 package com.example.moneytransferproj;
 
-import com.example.moneytransferproj.data_transfer_objects.Amount;
-import com.example.moneytransferproj.data_transfer_objects.ConfirmOperation;
-import com.example.moneytransferproj.data_transfer_objects.TransferData;
+import com.example.moneytransferproj.dto.Amount;
+import com.example.moneytransferproj.dto.ConfirmOperation;
+import com.example.moneytransferproj.dto.TransferData;
 import com.example.moneytransferproj.exceptions.ExceptionResponse;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
